@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CuraTrack | Patient Records</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 40px; background: #f4f7f6; color: #2c3e50; }
+        .box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 900px; margin: auto; }
+        
+        /* Navigation */
+        .back-link { text-decoration: none; color: #3498db; font-weight: bold; margin-bottom: 20px; display: inline-block; }
+        
+        /* Table Styling */
+        table { width: 100%; border-collapse: collapse; margin: 25px 0; background: white; }
+        th, td { border: 1px solid #eee; padding: 15px; text-align: left; }
+        th { background: #34495e; color: white; text-transform: uppercase; font-size: 14px; }
+        tr:hover { background-color: #f9f9f9; }
+
+        /* Form Styling */
+        .form-area { background: #ebf5fb; padding: 25px; border-radius: 10px; margin-top: 30px; border: 1px solid #d4e6f1; }
+        .form-area h3 { margin-top: 0; color: #2980b9; }
+        label { font-weight: bold; display: block; margin-top: 10px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        
+        .btn-save { 
+            background: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 15px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            margin-top: 15px; 
+            width: 100%; 
+            font-size: 16px; 
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn-save:hover { background: #219150; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <a href="/patients" class="back-link">← Return to Patient List</a>
+        
+        <h1>Medical History: {{ patient.name }}</h1>
+        <p><strong>DOB:</strong> {{ patient.dob }} | <strong>Contact:</strong> {{ patient.contact }}</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Visit Reason / Medication Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in appointments %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ a.date }}</td>
+                    <td>{{ a.reason }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3" style="text-align: center; color: #7f8c8d; padding: 30px;">
+                        No history found for this patient. Add a new clinical visit below.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="form-area">
+            <h3>Add Clinical Visit & Prescription</h3>
+            <form action="{{ url_for('add_visit') }}" method="POST">
+                
+                <input type="hidden" name="p_id" value="{{ patient.id }}">
+                
+                <label for="date">Date of Visit:</label>
+                <input type="date" id="date" name="date" required>
+        
+                <label for="reason">Diagnosis / Clinical Reason:</label>
+                <input type="text" id="reason" name="reason" placeholder="e.g. Chronic Migraine" required>
+        
+                <label for="medication">Medication Prescribed:</label>
+                <input type="text" id="medication" name="medication" placeholder="e.g. Sumatriptan 50mg" required>
+        
+                <button type="submit" class="btn-save">Save Medical Record</button>
+            </form>
+        </div>
+    </div>
+
+</body>

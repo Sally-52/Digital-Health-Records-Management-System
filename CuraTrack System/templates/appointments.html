@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointments Schedule</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background: #f4f7f6; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #34495e; color: white; }
+    </style>
+</head>
+<body>
+    <a href="/">← Dashboard</a>
+    <h1>General Appointment Schedule</h1>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Patient ID</th>
+            <th>Reason</th>
+            <th>Status</th>
+        </tr>
+        {% for a in appointments %}
+        <tr>
+            <td>{{ a.date }}</td>
+            <td>{{ a.patient_id }}</td>
+            <td>{{ a.reason }}</td>
+            <td><strong>{{ a.status }}</strong></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

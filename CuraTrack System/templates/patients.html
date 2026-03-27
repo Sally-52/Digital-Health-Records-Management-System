@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Patients</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background: #f4f7f6; }
+        table { width: 100%; border-collapse: collapse; background: white; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #34495e; color: white; }
+        .btn { padding: 5px 10px; background: #3498db; color: white; text-decoration: none; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <a href="/">← Dashboard</a>
+    <h1>Patient Directory</h1>
+    
+    <form method="POST" style="background: white; padding: 20px; border-radius: 8px;">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="date" name="dob" required>
+        <select name="gender"><option value="Male">Male</option><option value="Female">Female</option></select>
+        <input type="text" name="contact" placeholder="Phone Number">
+        <button type="submit">Register Patient</button>
+    </form>
+
+    <table>
+        <tr><th>Name</th><th>Contact</th><th>Action</th></tr>
+        {% for p in patients %}
+        <tr>
+            <td>{{ p.name }}</td>
+            <td>{{ p.contact }}</td>
+            <td><a href="/view-records/{{ p.id }}" class="btn">View Records</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CuraTrack | Medical Records</title>
+    <style>
+        body { display: flex; min-height: 100vh; background: #f0f2f5; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .sidebar { width: 260px; background: #2c3e50; color: white; padding: 25px 15px; box-sizing: border-box; }
+        .sidebar h2 { color: #27ae60; font-size: 1.6em; margin-bottom: 30px; text-align: center; border-bottom: 1px solid #34495e; padding-bottom: 15px; }
+        .sidebar a { display: block; color: #bdc3c7; padding: 12px 15px; text-decoration: none; margin-bottom: 8px; border-radius: 6px; }
+        .sidebar a:hover { background: #34495e; color: white; }
+        
+        .main-content { flex-grow: 1; padding: 40px; box-sizing: border-box; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        
+        /* Form Styling */
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.9em; color: #7f8c8d; margin-bottom: 5px; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        textarea { height: 80px; resize: vertical; }
+        
+        .btn-submit { background: #27ae60; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; }
+        
+        /* Record Entry Styling */
+        .record-entry { border-left: 4px solid #3498db; padding-left: 20px; margin-bottom: 25px; background: #f8f9fa; padding: 15px; border-radius: 0 8px 8px 0; }
+        .record-date { font-size: 0.8em; color: #95a5a6; }
+        .medication-box { background: #e8f4fd; border: 1px solid #3498db; padding: 10px; border-radius: 6px; margin-top: 10px; }
+        .medication-box strong { color: #2980b9; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>CuraTrack</h2>
+    <a href="/">🏠 Dashboard</a>
+    <a href="/patients">👥 Back to Patients</a>
+    <a href="/logout" style="color: #e74c3c; margin-top: 50px; border: 1px solid #e74c3c; text-align: center;">Logout</a>
+</div>
+
+<div class="main-content">
+    <h1>Patient Medical History</h1>
+    <p>Patient ID: #00{{ p_id }}</p>
+
+    <div class="card">
+        <h3>Add New Clinical Entry</h3>
+        <form method="POST">
+            <div class="form-group">
+                <label>Diagnosis</label>
+                <textarea name="diagnosis" placeholder="Describe the patient's condition..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Treatment Plan</label>
+                <textarea name="treatment" placeholder="Steps for recovery..." required></textarea>
+            </div>
+
+            <hr style="border: 0.5px solid #eee; margin: 20px 0;">
+            
+            <h4 style="color: #2c3e50; margin-bottom: 10px;">Prescription (Optional)</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                <div class="form-group">
+                    <label>Medication Name</label>
+                    <input type="text" name="med_name" placeholder="e.g. Amoxicillin">
+                </div>
+                <div class="form-group">
+                    <label>Dosage</label>
+                    <input type="text" name="dosage" placeholder="e.g. 500mg">
+                </div>
+                <div class="form-group">
+                    <label>Instructions</label>
+                    <input type="text" name="instructions" placeholder="e.g. Twice daily">
+                </div>
+            </div>
+            <button type="submit" class="btn-submit">Save Clinical Entry</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3>Previous Records</h3>
+        {% if records %}
+            {% for r in records %}
+            <div class="record-entry">
+                <div class="record-date">Recorded on: {{ r.created_at }}</div>
+                <p><strong>Diagnosis:</strong> {{ r.diagnosis }}</p>
+                <p><strong>Treatment:</strong> {{ r.treatment_plan }}</p>
+                
+                {% if r.medication_name %}
+                <div class="medication-box">
+                    <strong>💊 Prescription:</strong> {{ r.medication_name }} ({{ r.dosage }}) - <em>{{ r.instructions }}</em>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="color: #95a5a6; font-style: italic;">No previous records found for this patient.</p>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

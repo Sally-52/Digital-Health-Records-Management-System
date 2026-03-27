@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CuraTrack | Staff Dashboard</title>
+    <style>
+        /* Reuse the same CSS from above for consistency as per Chapter 4.4.1 */
+        body { display: flex; min-height: 100vh; background: #f0f2f5; margin: 0; font-family: sans-serif; }
+        .sidebar { width: 250px; background: #2c3e50; color: white; padding: 20px; }
+        .sidebar h2 { color: #3498db; font-size: 1.5em; margin-bottom: 30px; }
+        .sidebar a { display: block; color: #bdc3c7; padding: 12px; text-decoration: none; margin-bottom: 5px; border-radius: 4px; }
+        .sidebar a:hover { background: #34495e; color: white; }
+        .main-content { flex-grow: 1; padding: 40px; }
+        .stat-card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .btn-primary { background: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>CuraTrack</h2>
+    <a href="/" style="background: #34495e; color: white;">Dashboard</a>
+    <a href="/patients">Search Patients</a>
+    <a href="/appointments">Today's Schedule</a>
+    <a href="/logout" style="color: #e74c3c; margin-top: 20px;">Logout</a>
+</div>
+
+<div class="main-content">
+    <h1>Staff Dashboard</h1>
+    <p>Logged in as: <strong>{{ current_user.username }}</strong> ({{ current_user.role }})</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="stat-card">
+            <h3>Patients in System</h3>
+            <p style="font-size: 2em; font-weight: bold;">{{ p_count }}</p>
+            <a href="/patients" class="btn-primary">Manage Records</a>
+        </div>
+        <div class="stat-card">
+            <h3>Today's Appointments</h3>
+            <p style="font-size: 2em; font-weight: bold;">{{ a_count }}</p>
+            <a href="/appointments" class="btn-primary">View Calendar</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

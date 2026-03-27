@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 30px; }
+        .card { padding: 30px; border-radius: 10px; color: white; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .green { background: #27ae60; }
+        .blue { background: #2980b9; }
+        .orange { background: #e67e22; }
+    </style>
+</head>
+<body>
+    {% include 'navigation_bar.html' %}
+</body>
+    <div class="stats-grid">
+        <div class="card green">
+            <h3>Total Patients</h3>
+            <h2>{{ p_count }}</h2>
+        </div>
+        <div class="card blue">
+            <h3>System Users</h3>
+            <h2>{{ u_count }}</h2>
+        </div>
+        <div class="card orange">
+            <h3>Appointments</h3>
+            <h2>{{ a_count }}</h2>
+        </div>
+    </div>
+
+</body>
+</html>

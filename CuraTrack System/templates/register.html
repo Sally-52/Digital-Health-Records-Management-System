@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CuraTrack - Register Patient</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f4f4f4; }
+        .container { background: white; padding: 20px; border-radius: 8px; max-width: 500px; margin: auto; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #28a745; color: white; padding: 10px 15px; border: none; cursor: pointer; width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>CuraTrack: Patient Registration</h2>
+        <form action="/register" method="POST">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="date" name="dob" required>
+            <select name="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <input type="text" name="contact" placeholder="Phone Number" required>
+            <textarea name="medical_history" placeholder="Medical History / Underlying Disorders"></textarea>
+            <textarea name="allergies" placeholder="Known Allergies"></textarea>
+            <button type="submit">Save Patient Record</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CuraTrack | Manage Users</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; display: flex; margin: 0; background: #f4f7f6; }
+        .sidebar { width: 240px; background: #2c3e50; color: white; height: 100vh; padding: 20px; position: fixed; }
+        .sidebar h2 { color: #2ecc71; text-align: center; }
+        .sidebar a { color: #bdc3c7; display: block; padding: 12px; text-decoration: none; margin: 5px 0; border-radius: 4px; }
+        .sidebar a:hover { background: #34495e; color: white; }
+        
+        .main { margin-left: 280px; padding: 40px; flex: 1; }
+        .user-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        th, td { border-bottom: 1px solid #eee; padding: 15px; text-align: left; }
+        th { background: #34495e; color: white; }
+        .role-badge { background: #e8f8f5; color: #1abc9c; padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>CuraTrack</h2>
+        <a href="/">Dashboard</a>
+        <a href="/patients">Patient Directory</a>
+        <a href="/manage-users" style="background: #34495e; color: white;">Manage Users</a>
+        <a href="/logout" style="color: #e74c3c; margin-top: 50px;">Sign Out</a>
+    </div>
+    <div class="main">
+        <h1>System User Audit</h1>
+        <p>This module tracks administrative and clinical personnel with system access.</p>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Staff ID</th>
+                    <th>Username</th>
+                    <th>Access Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>#00{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td><span class="role-badge">{{ user.role }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
